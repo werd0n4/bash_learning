@@ -1,7 +1,7 @@
 #!/bin/bash
 
-files=`ls $1 -l | grep -c -- -.w`
-directories=`ls $1 -l | grep -c d.w`
+files=`find $1/* -maxdepth 0 -perm -u=w -type f | wc -l`
+directories=`find $1/* -maxdepth 0 -perm -u=w -type d | wc -l`
 
 echo "Plikow: "$files
 echo "Katalogow: "$directories
