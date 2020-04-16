@@ -1,0 +1,12 @@
+programy przydatne:
+realpath
+readlink
+
+basename
+dirname
+
+readlink
+
+ln -s
+
+test -ef
