@@ -32,3 +32,24 @@ find . -maxdepth 1 -type d -links +4 ! -perm 600 -perm 022
 
 
 
+# W zadanym drzewie katalogow znalezc (pod)katalogi zawierajace wiecej niz dwa
+# podkatalogi, do ktorych wlasciciel nie ma prawa zapisu ani odczytu a grupa
+# lub inni maja prawo zapisu.
+
+#!/bin/bash
+
+# Sprawdzenie, czy parametry podane przez uzytkownika sa prawidlowe
+if [ $# != 1 ]
+then
+	echo "Podales zla ilosc parametrow. Wymagane: 1";
+	exit 1;
+fi
+
+if [ ! -d $1 ]
+then
+	echo "Podany katalog nie istnieje";
+	exit 1;
+fi
+
+# Wyszukiwanie (pod)katalogow z konkretnymi uprawnieniami
+find $1 -type d -links +4 ! -perm /600 -perm /022 -print
