@@ -14,7 +14,7 @@
 #
 # d) wyposażyć skrypt w rozsądną obsługę błędów, takich jak na przykład nieistniejące pliki wejściowe.
 
-wget -qO- http://datko.plasassa/SO2/qemu-io.c | awk '{
+wget -qO- http://datko.pl/SO2/qemu-io.c | awk '{
         if($0 ~ /\.h[>|"]/)
         {
             temp = gensub ("h", "hpp", "g", $i);
@@ -27,6 +27,26 @@ wget -qO- http://datko.plasassa/SO2/qemu-io.c | awk '{
     } END { if (!NR) print "Wrong input!" }' > outputA.txt
 
 wget -qO- http://datko.pl/SO2/cpp.txt | awk '{
+        if($0 ~ /(<[a-z]*[A-Z]* .*>)|(<[a-z]*[A-Z]*>)|(<\/[a-z]*[A-Z]*>)/)
+        {
+            temp = gensub (/(<[a-z]*[A-Z]* .*>)|(<[a-z]*[A-Z]*>)|(<\/[a-z]*[A-Z]*>)/, "", "g", $0);
+            print temp
+        }
+        else
+        {
+            print $0
+        }
+    } END { if (!NR) print "Wrong input!" }' > outputB.txt
 
-
-    }' > outputB.txt
+wget -qO- http://datko.pl/SO2/tox.ini | awk '{
+        if($0 ~ /setenv/)
+        {
+            print
+            getline
+            while($0 !~ / =/)
+            {
+                print
+                getline;
+            }
+        }
+    } END { if (!NR) print "Wrong input!" }' > outputC.txt
