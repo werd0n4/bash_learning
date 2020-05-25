@@ -14,9 +14,7 @@
 #
 # d) wyposażyć skrypt w rozsądną obsługę błędów, takich jak na przykład nieistniejące pliki wejściowe.
 
-wget http://datko.pl/SO2/qemu-io.c -O "a.txt"
-
-awk '{
+wget -qO- http://datko.plasassa/SO2/qemu-io.c | awk '{
         if($0 ~ /\.h[>|"]/)
         {
             temp = gensub ("h", "hpp", "g", $i);
@@ -26,4 +24,9 @@ awk '{
         {
             print $0
         }
-    }' a.txt
+    } END { if (!NR) print "Wrong input!" }' > outputA.txt
+
+wget -qO- http://datko.pl/SO2/cpp.txt | awk '{
+
+
+    }' > outputB.txt
