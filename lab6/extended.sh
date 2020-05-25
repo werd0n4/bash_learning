@@ -9,13 +9,20 @@
 
 site="${1:-https://jbzd.com.pl/}"
 
-wget -qO- $site | awk '{
+wget -qO- $site | awk -v var="$site" '{
     for(i=1;i<=NF;i++)
     {
         if($i ~ /[a-zA-Z0-9\.:\/\-\\_]*\.(jpg|JPG|gif|GIF|png|PNG)/)
         {
             match($i, /[a-zA-Z0-9\.:\/\-\\_]*\.(jpg|JPG|gif|GIF|png|PNG)/, img);
-            print img[0]           
+            if(img[0] !~ /(http|https)/)
+            {
+                print var img[0]
+            }
+            else
+            {
+                print img[0]           
+            }
         }
     }
 }' > output.txt
