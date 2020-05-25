@@ -38,14 +38,18 @@ wget -qO- http://datko.pl/SO2/cpp.txt | awk '{
         }
     } END { if (!NR) print "Wrong input!" }' > outputB.txt
 
+#Nie wiem czy poprawnie zrozumiałem C. Ja rozumowałem tak żeby wyświetlić po razie każdy występujący parametr setenv w pliku.
 wget -qO- http://datko.pl/SO2/tox.ini | awk '{
         if($0 ~ /setenv/)
         {
-            print
             getline
             while($0 !~ / =/)
             {
-                print
+                if($0 in array == 0)
+                {
+                    print 
+                    array[$0]
+                } 
                 getline;
             }
         }
