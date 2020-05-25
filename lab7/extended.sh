@@ -17,16 +17,13 @@
 wget http://datko.pl/SO2/qemu-io.c -O "a.txt"
 
 awk '{
-        for(i=1;i<=NF;i++)
+        if($0 ~ /\.h[>|"]/)
         {
-            if($i ~ /\.h[>|"]/)
-            {
-                temp = gensub ("\.h", "\.hpp", "g", $i);
-                print temp
-            }
-            else
-            {
-                print $i
-            }
+            temp = gensub ("h", "hpp", "g", $i);
+            print temp
+        }
+        else
+        {
+            print $0
         }
     }' a.txt
